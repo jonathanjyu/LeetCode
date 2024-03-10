@@ -1,0 +1,9 @@
+select round(cast(sum(case when C.first_order_date = C.customer_pref_delivery_date then 1 else 0 end)*100 as float)/cast(count(*) as float),2)as immediate_percentage 
+from(
+select A.customer_id,A.first_order_date,B.customer_pref_delivery_date
+from 
+(select customer_id,min(order_date) first_order_date
+from Delivery
+group by customer_id)A
+left outer join Delivery B on A.customer_id = B.customer_id and A.first_order_date = B.order_date
+)C
