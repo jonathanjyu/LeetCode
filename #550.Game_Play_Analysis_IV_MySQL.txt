@@ -1,0 +1,8 @@
+select round(count(*)/ (select count(distinct player_id) from Activity),2) AS fraction
+from
+(
+select player_id, min(event_date) AS 'first_login_date'
+from Activity
+group by player_id
+having (player_id, DATE_ADD(first_login_date, interval 1 day)) in (select player_id, event_date from Activity)
+)A
