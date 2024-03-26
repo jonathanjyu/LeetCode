@@ -1,0 +1,9 @@
+Select A.customer_id
+from
+(
+select customer_id, product_key
+from Customer
+group by customer_id, product_key
+)A
+group by A.customer_id
+having count(A.product_key) = (select count(*) from Product)
