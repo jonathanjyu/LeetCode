@@ -1,0 +1,2 @@
+select x, y, z, case when ((x+y<=z) or (x+z<=y) or (y+z<=x) or (abs(x-y)>=z) or (abs(y-z)>=x) or (abs(x-z)>=y)) then 'No' else 'Yes' end as 'triangle'
+from Triangle
